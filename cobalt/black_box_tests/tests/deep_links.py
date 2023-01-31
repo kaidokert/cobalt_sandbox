@@ -85,7 +85,7 @@ class DeepLink(black_box_tests.BlackBoxTestCase):
   def tearDown(self):
     _script_loading_signal.clear()
     super().tearDown()
-  
+
   def _load_page(self, webdriver, url):
     """Instructs webdriver to navigate to url."""
     try:
