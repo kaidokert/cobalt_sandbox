@@ -78,6 +78,14 @@ class JavascriptRequestDetector(MakeRequestHandlerClass(_SERVER_ROOT_PATH)):
 class DeepLink(black_box_tests.BlackBoxTestCase):
   """Tests firing deep links before web module is loaded."""
 
+  def setUp(self):
+    _script_loading_signal.clear()
+    super().setUp()
+
+  def tearDown(self):
+    _script_loading_signal.clear()
+    super().tearDown()
+  
   def _load_page(self, webdriver, url):
     """Instructs webdriver to navigate to url."""
     try:
