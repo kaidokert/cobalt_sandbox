@@ -1,0 +1,14 @@
+static_library("mock_starboard") {
+    testonly = true
+    
+    sources = [
+        "event-mock.h",
+        "event-mock.cpp",
+        "file-mock.h",
+        "file-mock.cpp",
+    ]
+    deps = [
+      "//testing/gmock",
+      "//testing/gtest",
+    ]
+}

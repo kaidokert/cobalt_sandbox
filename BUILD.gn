@@ -33,3 +33,16 @@ group("default") {
     deps = [ ":gn_all" ]
   }
 }
+
+target(gtest_target_type, "starboard_gmock_test") {
+    testonly = true
+    sources = [
+      "test.cpp"
+    ]
+    deps = [
+      "//testing/gmock",
+      "//testing/gtest",
+      "//starboard:starboard_headers_only",
+      "//starboard/mocks:mock_starboard",
+    ]
+}
