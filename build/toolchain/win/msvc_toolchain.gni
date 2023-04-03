@@ -90,30 +90,26 @@ template("msvc_toolchain") {
 
     tool("cc") {
       precompiled_header_type = "msvc"
-      pdbname = "{{target_out_dir}}/{{label_name}}_c.pdb"
 
-      # Label names may have spaces in them so the pdbname must be quoted. The
+      # Label names may have spaces in them so the fdbname must be quoted. The
       # source and output don't need to be quoted because GN knows they're a
       # full file name and will quote automatically when necessary.
       depsformat = "msvc"
       description = "CC {{output}}"
       outputs = [ "$object_subdir/{{source_name_part}}.obj" ]
 
-      command = "$cl_prefix\"$cl\" /nologo /showIncludes $sys_include_flags{{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} /c {{source}} /Fo{{output}} /Fd\"$pdbname\""
+      command = "$cl_prefix\"$cl\" /nologo /showIncludes $sys_include_flags{{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} /c {{source}} /Fo{{output}}"
     }
 
     tool("cxx") {
       precompiled_header_type = "msvc"
-
-      # The PDB name needs to be different between C and C++ compiled files.
-      pdbname = "{{target_out_dir}}/{{label_name}}_cc.pdb"
 
       # See comment in CC tool about quoting.
       depsformat = "msvc"
       description = "CXX {{output}}"
       outputs = [ "$object_subdir/{{source_name_part}}.obj" ]
 
-      command = "$cl_prefix\"$cl\" /nologo /showIncludes $sys_include_flags{{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} /c {{source}} /Fo{{output}} /Fd\"$pdbname\""
+      command = "$cl_prefix\"$cl\" /nologo /showIncludes $sys_include_flags{{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} /c {{source}} /Fo{{output}}"
     }
 
     tool("asm") {
@@ -148,11 +144,10 @@ template("msvc_toolchain") {
       # E.g. "foo.dll":
       dllname = "{{output_dir}}/{{target_output_name}}{{output_extension}}"
       libname = "${dllname}.lib"  # e.g. foo.dll.lib
-      pdbname = "${dllname}.pdb"
       rspfile = "${dllname}.rsp"
       pool = "//build/toolchain:link_pool($default_toolchain)"
 
-      command = "$env_wrapper$link /OUT:$dllname /nologo ${sys_lib_flags}/IMPLIB:$libname /DLL /PDB:$pdbname @$rspfile"
+      command = "$env_wrapper$link /OUT:$dllname /nologo ${sys_lib_flags}/IMPLIB:$libname /DLL @$rspfile"
 
       default_output_extension = ".dll"
       default_output_dir = "{{root_out_dir}}"
@@ -180,11 +175,10 @@ template("msvc_toolchain") {
     tool("solink_module") {
       # E.g. "foo.dll":
       dllname = "{{output_dir}}/{{target_output_name}}{{output_extension}}"
-      pdbname = "${dllname}.pdb"
       rspfile = "${dllname}.rsp"
       pool = "//build/toolchain:link_pool($default_toolchain)"
 
-      command = "$env_wrapper$link /OUT:$dllname /nologo ${sys_lib_flags}/DLL /PDB:$pdbname @$rspfile"
+      command = "$env_wrapper$link /OUT:$dllname /nologo ${sys_lib_flags}/DLL @$rspfile"
 
       default_output_extension = ".dll"
       default_output_dir = "{{root_out_dir}}"
@@ -201,11 +195,10 @@ template("msvc_toolchain") {
 
     tool("link") {
       exename = "{{output_dir}}/{{target_output_name}}{{output_extension}}"
-      pdbname = "$exename.pdb"
       rspfile = "$exename.rsp"
       pool = "//build/toolchain:link_pool($default_toolchain)"
 
-      command = "$env_wrapper$link /OUT:$exename /nologo ${sys_lib_flags} /PDB:$pdbname @$rspfile"
+      command = "$env_wrapper$link /OUT:$exename /nologo ${sys_lib_flags} @$rspfile"
 
       default_output_extension = ".exe"
       default_output_dir = "{{root_out_dir}}"

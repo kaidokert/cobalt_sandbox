@@ -4,7 +4,8 @@
 
 if (is_starboard) {
   declare_args() {
-    visual_studio_version = "14.15.26726"
+    # visual_studio_version = "14.15.27023"
+    visual_studio_version = "14.16.27023"
 
     # Full path to the Windows SDK, not including a backslash at the end.
     # This value is the default location, override if you have a different
@@ -36,7 +37,7 @@ if (is_starboard) {
   if (is_docker_build) {
     _default_visual_studio_path = "C:/BuildTools"
   } else {
-    _default_visual_studio_path = "C:/Program Files (x86)/Microsoft Visual Studio/2017/Professional"
+    _default_visual_studio_path = "E:/Program Files (x86)/Microsoft Visual Studio/2017/Community"
   }
 
   declare_args() {
