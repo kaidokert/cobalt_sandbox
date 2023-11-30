@@ -87,6 +87,7 @@ runs:
       shell: bash
       run: |
         set -xue
+        DOCKER_BUILDKIT=0 docker compose -f docker-compose.yml build --pull "${SERVICE}"
         DOCKER_BUILDKIT=0 docker compose -f docker-compose.yml up --build --no-start "${SERVICE}"
     - name: Tag images
       id: tag-images
