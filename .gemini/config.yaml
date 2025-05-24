@@ -1,0 +1,9 @@
+# See the following for configuration options and the default values
+# https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github#default-configuration
+have_fun: true # Haikus and other bits
+code_review:
+  disable: false
+  pull_request_opened:
+    summary: true # Summarize the change when PR opened 
+    code_review: false # Don't post a code review immediately
+    help: false # Don't post a help text
